@@ -14,7 +14,7 @@ help:
 	@echo
 	@echo 'Usage:'
 	@echo '    make build           Compile the project.'
-	@echo '    make get-deps        runs dep ensure, mostly used for ci.'
+	@echo '    make get-deps        Update the dependencies.'
 	
 	@echo '    make clean           Clean the directory tree.'
 	@echo
@@ -31,5 +31,5 @@ clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
 
 test:
-	go test $(glide nv)
+	go test -v -race -cover -timeout 30s $(go list ./... | grep -v /vendor/)
 
